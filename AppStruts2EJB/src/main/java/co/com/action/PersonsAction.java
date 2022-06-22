@@ -55,10 +55,7 @@ public class PersonsAction extends ActionSupport {
     @Action(value = "/deletePerson", results = {
         @Result(name = "success", location = "list", type = "redirect")})
     public String eliminar() {
-        //Recuperamos el objeto persona, ya que solo tenemos el idPerson
-        log.info("Metodo eliminar persona antes de recuperar:" + person);
-        person = personService.getPerson(person); //revisar si se puede quitar el == y sigue funcionando, por referencia
-        log.info("Metodo eliminar persona despues de recuperar:" + person);
+        person = personService.getPerson(person);
         personService.deletePerson(person);
         return SUCCESS;
     }
@@ -68,7 +65,6 @@ public class PersonsAction extends ActionSupport {
     @Action(value = "/savePerson", results = {
         @Result(name = "success", location = "list", type = "redirect")})
     public String guardar() {
-        //Diferenciamos la accion de agregar o editar con el idPerson
         if (person.getId() == null) {
             personService.addPerson(person);
         } else {
